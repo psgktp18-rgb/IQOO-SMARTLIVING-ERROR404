@@ -59,7 +59,7 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Poppins', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['"Plus Jakarta Sans"', 'Outfit', 'system-ui', '-apple-system', 'sans-serif'],
       },
       boxShadow: {
         'iqoo-glow': '0 0 30px rgba(255, 192, 0, 0.28)',

@@ -6,7 +6,6 @@ import {
   Moon, 
   ShieldCheck, 
   Flame, 
-  HelpCircle,
   BrainCircuit,
   Zap
 } from 'lucide-react';
@@ -18,7 +17,6 @@ export const ModeHeader: React.FC = () => {
   const currentMode = useAuraStore((state) => state.currentMode);
   const confidence = useAuraStore((state) => state.confidence);
   const lastDetectedTime = useAuraStore((state) => state.lastDetectedTime);
-  const setWhyPanelOpen = useAuraStore((state) => state.setWhyPanelOpen);
 
   const theme = MODE_THEMES[currentMode];
 
@@ -102,18 +100,6 @@ export const ModeHeader: React.FC = () => {
         <span className="text-zinc-600">•</span>
         <span className="text-[#FFC000] font-semibold">{confidence}% confidence</span>
       </div>
-
-      {/* Why button */}
-      <motion.button
-        whileHover={{ scale: 1.03 }}
-        whileTap={{ scale: 0.97 }}
-        onClick={() => setWhyPanelOpen(true)}
-        className="mt-3 group inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-[#161822] hover:bg-[#1E202E] border border-[#292D3D] transition-all"
-      >
-        <Zap className="w-3.5 h-3.5 text-[#FFC000]" />
-        <span className="text-[12px] font-medium text-zinc-200">Why Aura chose this?</span>
-        <HelpCircle className="w-3.5 h-3.5 text-zinc-500" />
-      </motion.button>
     </div>
   );
 };

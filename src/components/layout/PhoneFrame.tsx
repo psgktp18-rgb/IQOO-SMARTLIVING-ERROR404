@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Wifi, BatteryMedium, Zap } from 'lucide-react';
+import { Wifi, BatteryMedium } from 'lucide-react';
 import { useAuraStore } from '../../store/useAuraStore';
 import { MODE_THEMES } from '../../lib/modeEngine';
 
