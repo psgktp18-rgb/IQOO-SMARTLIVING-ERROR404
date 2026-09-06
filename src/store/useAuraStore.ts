@@ -38,10 +38,12 @@ interface AuraState {
   // UI State
   activeTab: NavigationTab;
   isWhyPanelOpen: boolean;
+  isConnectedDevicesOpen: boolean;
 
   // Actions
   setActiveTab: (tab: NavigationTab) => void;
   setWhyPanelOpen: (isOpen: boolean) => void;
+  setConnectedDevicesOpen: (isOpen: boolean) => void;
   setContextInput: (partial: Partial<ContextInput>) => void;
   applyPreset: (preset: DemoPreset) => void;
   runDetection: () => Promise<void>;
@@ -53,6 +55,7 @@ interface AuraState {
   toggleDoorLock: () => void;
   toggleSpeakerPlayback: () => void;
   setSpeakerVolume: (val: number) => void;
+  toggleDeviceConnection: (deviceKey: keyof DeviceStates) => void;
 }
 
 const initialContext: ContextInput = {
@@ -85,10 +88,13 @@ export const useAuraStore = create<AuraState>((set, get) => ({
 
   activeTab: 'home',
   isWhyPanelOpen: false,
+  isConnectedDevicesOpen: false,
 
   setActiveTab: (tab) => set({ activeTab: tab }),
 
   setWhyPanelOpen: (isOpen) => set({ isWhyPanelOpen: isOpen }),
+
+  setConnectedDevicesOpen: (isOpen) => set({ isConnectedDevicesOpen: isOpen }),
 
   setContextInput: (partial) => {
     set((state) => ({
@@ -254,5 +260,22 @@ export const useAuraStore = create<AuraState>((set, get) => ({
         }
       }
     }));
+  },
+
+  toggleDeviceConnection: (deviceKey) => {
+    set((state) => {
+      const currentDev = state.deviceStates[deviceKey];
+      const nextConnected = !currentDev.connected;
+      return {
+        deviceStates: {
+          ...state.deviceStates,
+          [deviceKey]: {
+            ...currentDev,
+            connected: nextConnected,
+            lastSynced: nextConnected ? 'Just now' : 'Syncing...'
+          }
+        }
+      };
+    });
   }
 }));

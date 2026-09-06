@@ -40,16 +40,28 @@ export interface DeviceStates {
     brightness: number; // 0-100
     temperatureK: number; // 2200 to 5000
     colorDesc: string;
+    connected: boolean;
+    connectionType: string;
+    lastSynced: string;
+    signalBars: number;
   };
   thermostat: {
     currentTemp: number;
     targetTemp: number;
     status: 'cooling' | 'heating' | 'eco' | 'idle';
+    connected: boolean;
+    connectionType: string;
+    lastSynced: string;
+    signalBars: number;
   };
   lock: {
     isLocked: boolean;
     statusText: string;
     lastActionTime?: string;
+    connected: boolean;
+    connectionType: string;
+    lastSynced: string;
+    signalBars: number;
   };
   speaker: {
     isPlaying: boolean;
@@ -57,6 +69,10 @@ export interface DeviceStates {
     artistName: string;
     volume: number; // 0-100
     ambientType: string;
+    connected: boolean;
+    connectionType: string;
+    lastSynced: string;
+    signalBars: number;
   };
 }
 

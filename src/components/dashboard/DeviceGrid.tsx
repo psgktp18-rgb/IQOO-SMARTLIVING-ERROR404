@@ -1,12 +1,13 @@
 import React from 'react';
-import { Sliders } from 'lucide-react';
+import { Sliders, ChevronRight } from 'lucide-react';
 import { DeviceCard } from './DeviceCard';
 import { useAuraStore } from '../../store/useAuraStore';
-import { MODE_THEMES } from '../../lib/modeEngine';
 
 export const DeviceGrid: React.FC = () => {
-  const currentMode = useAuraStore((state) => state.currentMode);
-  const theme = MODE_THEMES[currentMode];
+  const deviceStates = useAuraStore((state) => state.deviceStates);
+  const setConnectedDevicesOpen = useAuraStore((state) => state.setConnectedDevicesOpen);
+
+  const connectedCount = Object.values(deviceStates).filter((d) => d.connected).length;
 
   return (
     <div className="flex flex-col">
@@ -15,10 +16,15 @@ export const DeviceGrid: React.FC = () => {
           <Sliders className="w-3.5 h-3.5 text-[#FFC000]" />
           <span>Device Controls</span>
         </div>
-        <div className="flex items-center gap-1.5 text-[11px] text-zinc-400">
-          <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: theme.accentHex }} />
-          <span>4 devices synced</span>
-        </div>
+        <button 
+          onClick={() => setConnectedDevicesOpen(true)}
+          className="flex items-center gap-1.5 text-[11px] text-zinc-400 hover:text-white transition-colors cursor-pointer group bg-[#14151E]/60 hover:bg-[#1C1E2B] px-2 py-0.5 rounded-full border border-zinc-800/80 hover:border-zinc-700"
+          title="View Connected Devices"
+        >
+          <span className="w-1.5 h-1.5 rounded-full animate-pulse bg-emerald-400" />
+          <span>{connectedCount} devices synced</span>
+          <ChevronRight className="w-3 h-3 text-zinc-500 group-hover:text-zinc-300 transition-colors" />
+        </button>
       </div>
       <DeviceCard />
     </div>

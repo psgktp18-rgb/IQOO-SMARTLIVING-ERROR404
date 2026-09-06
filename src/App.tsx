@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PhoneFrame } from './components/layout/PhoneFrame';
 import { BottomNav } from './components/layout/BottomNav';
@@ -8,15 +8,26 @@ import { DeviceGrid } from './components/dashboard/DeviceGrid';
 import { TimelineView } from './components/timeline/TimelineView';
 import { SimulatePanel } from './components/simulate/SimulatePanel';
 import { WhyPanel } from './components/why/WhyPanel';
+import { ConnectedDevicesSheet } from './components/dashboard/ConnectedDevicesSheet';
 import { AnalyzingOverlay } from './components/simulate/AnalyzingOverlay';
+import { WelcomeSplashScreen } from './components/layout/WelcomeSplashScreen';
 import { useAuraStore } from './store/useAuraStore';
+import { Sparkles } from 'lucide-react';
 
 export const App: React.FC = () => {
   const activeTab = useAuraStore((state) => state.activeTab);
+  const [hasEntered, setHasEntered] = useState<boolean>(false);
 
   return (
     <PhoneFrame>
       <div className="relative flex-1 flex flex-col overflow-hidden">
+        {/* Welcome Splash Screen */}
+        <AnimatePresence>
+          {!hasEntered && (
+            <WelcomeSplashScreen onEnter={() => setHasEntered(true)} />
+          )}
+        </AnimatePresence>
+
         {/* Active Tab Screen Content with Smooth Spring Transition */}
         <div className="flex-1 flex flex-col overflow-hidden relative">
           <AnimatePresence mode="wait">
@@ -68,7 +79,19 @@ export const App: React.FC = () => {
 
         {/* Global Modals & Overlays */}
         <WhyPanel />
+        <ConnectedDevicesSheet />
         <AnalyzingOverlay />
+
+        {/* Floating Quick Re-open Splash Button (Top Right of Phone) */}
+        {hasEntered && (
+          <button
+            onClick={() => setHasEntered(false)}
+            title="View Welcome Screen"
+            className="absolute top-2 right-4 z-40 p-1.5 rounded-lg bg-[#161822]/80 hover:bg-[#1E2130] border border-[#272A3C] text-zinc-400 hover:text-[#FFC000] transition-colors"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+          </button>
+        )}
       </div>
     </PhoneFrame>
   );
