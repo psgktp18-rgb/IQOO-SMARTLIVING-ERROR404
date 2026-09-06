@@ -58,18 +58,5 @@ src/
 │   └── useAuraStore.ts  # Zustand global state manager
 └── types/
     └── aura.ts          # TypeScript interfaces
-```
-
-## 🌐 Deploying to Vercel
-
-This project is fully optimized for Vercel deployment. 
-
-If your repository is on GitHub:
-1. Go to your [Vercel Dashboard](https://vercel.com/dashboard)
-2. Click **Add New...** -> **Project**
-3. Import this GitHub repository
-4. Leave the build settings as default (Framework Preset: Vite)
-5. Click **Deploy**
-
 ---
 *Built for the iQOO Hackathon.*
